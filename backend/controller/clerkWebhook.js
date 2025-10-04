@@ -9,9 +9,9 @@ const clerkWebhook = async(req,res) => {
 
       //  Getting headers
         const headers={
-          "svid-id":req.headers["svid-id"],
-          "svid-timestamp":req.headers["svid-timestamp"],
-          "svid-signature":req.headers["svid-signature"]
+          "svix-id":req.headers["svix-id"],
+          "svix-timestamp":req.headers["svix-timestamp"],
+          "svix-signature":req.headers["svix-signature"]
        };
 
       //  verifiying headers
@@ -21,9 +21,9 @@ const clerkWebhook = async(req,res) => {
       const {data,type}=req.body;
 
       const userData={
-        _id:data._id,
+        _id:data.id,
         username:data.first_name+" "+data.last_name,
-        email:data.email_address[0].email_address,
+        email:data.email_addresses[0].email_address,
         image:data.image_url,
       }
 
