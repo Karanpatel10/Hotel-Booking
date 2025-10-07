@@ -24,7 +24,7 @@ const userSchema=mongoose.Schema({
     },
     recentsearchCities:[{
         type:String,
-        required:true,
+        // required:true,
     }]
 },{timestamps:true});
 
