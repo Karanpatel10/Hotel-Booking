@@ -5,6 +5,7 @@ import { Webhook } from "svix";
 const clerkWebhook = async(req,res) => {
   try{
         //create a Svix instance with clerk webhook seceat
+        console.log("🔥 Clerk webhook hit");
         const whook =new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY);
 
       //  Getting headers
@@ -19,6 +20,7 @@ const clerkWebhook = async(req,res) => {
 
       //  Getting user details
       const {data,type}=req.body;
+      console.log("✅ Verified event:", type, data.id);
 
       const userData={
         _id:data.id,
@@ -26,20 +28,27 @@ const clerkWebhook = async(req,res) => {
         username:`${data.first_name || ""} ${data.last_name || ""}`.trim(),
         image:data.image_url,
       }
+      console.log("📩 User data prepared:", userData); 
 
       // Switch case for different events
       switch(type){
         case "user.created":
           //  Create a new user in our database
+          console.log("🟢 Creating user in DB...");
           await User.create(userData);
+          console.log("✅ User created successfully");
           break;
         case "user.updated":
           //  Update user details in our database
+          console.log("✏️ Updating user in DB...");
           await User.findByIdAndUpdate(data.id,userData);
+          console.log("✅ User updated successfully");
           break;
         case "user.deleted":
           //  Delete user from our database
+          console.log("🗑️ Deleting user from DB...");
           await User.findByIdAndDelete(data.id);
+          console.log("✅ User deleted successfully");
           break;
         default:
           //  Handle other events if needed
