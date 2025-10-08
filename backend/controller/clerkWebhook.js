@@ -20,7 +20,7 @@ const clerkWebhook = async(req,res) => {
 
       //  Getting user details
       const {data,type}=req.body;
-      console.log("✅ Verified event:", type, data.id);
+      console.log("✅ Verified event:", type, data);
 
       const userData={
         _id:data.id,
