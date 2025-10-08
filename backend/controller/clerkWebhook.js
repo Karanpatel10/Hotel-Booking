@@ -65,3 +65,17 @@ import { Webhook } from "svix";
 // }
 
 // export default clerkWebhook
+
+const clerkWebhook = async (req, res) => {
+  try {
+    console.log("🔥 Clerk webhook hit"); // Step 1 log
+
+    // Temporary response to test
+    return res.status(200).send("Webhook reached");
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send("Error");
+  }
+};
+
+export default clerkWebhook;
