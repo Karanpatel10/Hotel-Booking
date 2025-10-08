@@ -10,15 +10,13 @@ import clerkWebhook from './controller/clerkWebhook.js'
 const app=express()
 app.use(cors())
 
-app.use(
-  '/api/clerk',
-  express.raw({ type: 'application/json' }), // Keep raw body for Svix verification
-  clerkWebhook
-);
 
 //Middleware
 app.use(express.json())
 app.use(clerkMiddleware())
+
+app.use('/api/clerk',clerkWebhook);
+
 
 // API to listen to clerk webhooks
 
